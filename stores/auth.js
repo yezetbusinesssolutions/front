@@ -49,7 +49,7 @@ export const useAuthStore = defineStore("auth", {
       formData.append("username", username);
       formData.append("password", password);
 
-      const data = await $fetch("http://34.63.32.135/api/v1/auth/login", {
+      const data = await $fetch("https://simonsmcplc.xubi.org/api/v1/auth/login", {
         method: "POST",
         body: formData,
         headers: {
