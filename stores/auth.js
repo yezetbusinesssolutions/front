@@ -64,7 +64,7 @@ export const useAuthStore = defineStore("auth", {
     async getProfile() {
       if (!this.token) return null;
       try {
-        const data = await $fetch("http://localhost:8000/api/v1/auth/me", {
+        const data = await $fetch("https://simonsmcplc.xubi.org/api/v1/auth/me", {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -82,7 +82,7 @@ export const useAuthStore = defineStore("auth", {
       params.append("old_password", oldPassword);
       params.append("new_password", newPassword);
 
-      return await $fetch("http://localhost:8000/api/v1/auth/change-password", {
+      return await $fetch("https://simonsmcplc.xubi.org/api/v1/auth/change-password", {
         method: "POST",
         body: params,
         headers: {
