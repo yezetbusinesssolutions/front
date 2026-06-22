@@ -26,7 +26,7 @@ const headers = ref([
 const form = ref({
   delivery_no: "",
   supplier_name: "",
-  site_id: "",
+  received_at_site_id: "",
   notes: "",
 });
 
@@ -60,20 +60,20 @@ const loadSites = async () => {
 };
 
 const openDialog = () => {
-  form.value = { delivery_no: "", supplier_name: "", site_id: "", notes: "" };
+  form.value = { delivery_no: "", supplier_name: "", received_at_site_id: "", notes: "" };
   formError.value = "";
   dialog.value = true;
 };
 
 const submitDelivery = async () => {
-  if (!form.value.site_id) return;
+  if (!form.value.received_at_site_id) return;
   formLoading.value = true;
   formError.value = "";
   try {
     await api.post("/assembly/deliveries", {
       delivery_no: form.value.delivery_no || undefined,
       supplier_name: form.value.supplier_name || undefined,
-      site_id: Number(form.value.site_id),
+      received_at_site_id: Number(form.value.received_at_site_id),
       notes: form.value.notes || undefined,
     });
     dialog.value = false;
@@ -188,15 +188,15 @@ const siteName = (siteId) => {
               placeholder="Supplier name"
               class="mb-3"
             />
-            <GlobalsAutocomplete
-              v-model="form.site_id"
-              :items="sites"
-              item-title="site_name"
-              item-value="site_id"
-              label="Receiving Site"
-              :rules="[rules.required]"
-              class="mb-3"
-            />
+<GlobalsAutocomplete
+               v-model="form.received_at_site_id"
+               :items="sites"
+               item-title="site_name"
+               item-value="site_id"
+               label="Receiving Site"
+               :rules="[rules.required]"
+               class="mb-3"
+             />
             <GlobalsTextField
               v-model="form.notes"
               label="Notes (optional)"

@@ -33,14 +33,10 @@ const approveInvoice = async (approve) => {
 };
 
 const downloadPdf = async () => {
-  const token = auth.token?.value;
-  if (!token) {
-    console.error('No auth token found');
-    return;
-  }
+  const fullApiUrl = `/api/v1/sales/invoices/${invoice.value.invoice_id}/pdf`;
   try {
-    const response = await fetch(`http://localhost:8000/api/v1/sales/invoices/${invoice.value.invoice_id}/pdf`, {
-      headers: { Authorization: `Bearer ${token}` }
+    const response = await fetch(fullApiUrl, {
+      headers: { Authorization: `Bearer ${auth.token?.value || ''}` }
     });
     if (!response.ok) {
       console.error('PDF download failed:', response.status);
@@ -77,7 +73,7 @@ const formatDate = (dateStr) => {
 const formatImageUrl = (path) => {
   if (!path) return "";
   if (path.startsWith("http")) return path;
-  return `http://localhost:8000${path}`;
+  return path.startsWith("/") ? path : `/${path}`;
 };
 
 onMounted(() => {

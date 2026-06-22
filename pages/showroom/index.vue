@@ -41,6 +41,9 @@ const removeFromCart = (motorId) => {
 
 onMounted(async () => {
   await auth.initAuth();
+  if (auth.token) {
+    await auth.getProfile();
+  }
 
   try {
     const sitesData = await api.get("/sites");
@@ -54,14 +57,14 @@ onMounted(async () => {
     } else if (auth.isAdmin && showrooms.value.length > 0) {
       showroomSite.value = showrooms.value[0];
     }
+    
+    if (showroomSite.value?.site_id) {
+      await loadInventory();
+    }
   } catch (e) {
     console.error("Failed to initialize showroom:", e);
   } finally {
     loading.value = false;
-  }
-
-  if (showroomSite.value?.site_id) {
-    await loadInventory();
   }
 });
 </script>

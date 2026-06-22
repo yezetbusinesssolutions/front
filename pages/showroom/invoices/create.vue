@@ -111,7 +111,7 @@ const openPaymentProofPicker = () => {
       formData.append('file', file);
       try {
         const result = await api.upload('/sales/upload/payment-proof', formData);
-        const fullUrl = result.url.startsWith('http') ? result.url : `http://localhost:8000${result.url}`;
+        const fullUrl = result.url.startsWith('http') ? result.url : `/${result.url.startsWith('/') ? result.url.slice(1) : result.url}`;
         form.value.payment_proof_path = result.url;
         paymentProofImage.value = fullUrl;
       } catch (err) {

@@ -68,7 +68,7 @@ export const useSyncQueueStore = defineStore("syncQueue", {
       const items = [...this.pendingItems];
       for (const item of items) {
         try {
-          const response = await fetch(`http://localhost:8000/api/v1${item.endpoint}`, {
+          const response = await fetch(`https://simonsmcplc.xubi.org/api/v1${item.endpoint}`, {
             method: item.method,
             headers: {
               "Content-Type": "application/json",
