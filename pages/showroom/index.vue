@@ -1,7 +1,7 @@
 <script setup>
-import { useAuthStore } from "@/stores/auth";
+import { useAuth } from "@/composables/useAuth";
 const api = useApi();
-const auth = useAuthStore();
+const auth = useAuth();
 const motors = ref([]);
 const showroomSite = ref(null);
 const showrooms = ref([]);
@@ -40,8 +40,8 @@ const removeFromCart = (motorId) => {
 };
 
 onMounted(async () => {
-  await auth.initAuth();
-  if (auth.token) {
+  auth.initAuth();
+  if (auth.token?.value) {
     await auth.getProfile();
   }
 
@@ -49,12 +49,12 @@ onMounted(async () => {
     const sitesData = await api.get("/sites");
     showrooms.value = sitesData.filter(s => s.site_type === "SHOWROOM");
 
-    const userSiteId = auth.user?.assigned_site_id;
+    const userSiteId = auth.user?.value?.assigned_site_id;
 
     // Sales rep gets their assigned site, Admin can select any showroom
-    if (auth.isSalesRep && userSiteId) {
+    if (auth.isSalesRep() && userSiteId) {
       showroomSite.value = showrooms.value.find(s => s.site_id === userSiteId) || showrooms.value[0];
-    } else if (auth.isAdmin && showrooms.value.length > 0) {
+    } else if (auth.isAdmin() && showrooms.value.length > 0) {
       showroomSite.value = showrooms.value[0];
     }
     
@@ -71,7 +71,7 @@ onMounted(async () => {
 
 <template>
   <v-container fluid>
-    <GlobalsHeader title="Showroom" is-btn btn-color="light" :btn-text="auth.isAdmin ? 'Back to Dashboard' : 'Back to Assembly'" :to="auth.isAdmin ? '/' : '/assembly'" />
+    <GlobalsHeader title="Showroom" is-btn btn-color="light" :btn-text="auth.isAdmin() ? 'Back to Dashboard' : 'Back to Assembly'" :to="auth.isAdmin() ? '/' : '/assembly'" />
 
     <v-row>
       <v-col cols="12" md="8">
@@ -80,7 +80,7 @@ onMounted(async () => {
             <div class="d-flex align-center ga-2">
               <h4 class="text-h4">Available Motors ({{ showroomSite?.site_name }})</h4>
               <v-select
-                v-if="auth.isAdmin"
+                v-if="auth.isAdmin()"
                 :items="showrooms"
                 v-model="showroomSite"
                 return-object

@@ -73,7 +73,7 @@ const formatDate = (dateStr) => {
 const formatImageUrl = (path) => {
   if (!path) return "";
   if (path.startsWith("http")) return path;
-  return path.startsWith("/") ? path : `/${path}`;
+  return `https://simonsmcplc.xubi.org${path}`;
 };
 
 onMounted(() => {
