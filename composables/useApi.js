@@ -1,4 +1,4 @@
-const API_BASE = "https://simonsmcplc.xubi.org/api/v1";
+const API_BASE = "https://simonsmcplc.xubi.org/api/v1"; //error
 
 export const useApi = () => {
   const auth = useAuth();
