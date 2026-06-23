@@ -33,7 +33,7 @@ const approveInvoice = async (approve) => {
 };
 
 const downloadPdf = async () => {
-  const fullApiUrl = `/api/v1/sales/invoices/${invoice.value.invoice_id}/pdf`;
+  const fullApiUrl = `https://simonsmcplc.xubi.org/api/v1/sales/invoices/${invoice.value.invoice_id}/pdf`;
   try {
     const response = await fetch(fullApiUrl, {
       headers: { Authorization: `Bearer ${auth.token?.value || ''}` }
