@@ -112,10 +112,10 @@ const siteName = (siteId) => {
         <h4 class="text-h4">Deliveries</h4>
         <div class="d-flex align-center ga-2">
           <GlobalsTextField v-model="search" placeholder="Search deliveries..." class="max-w-300" prepend-inner-icon="tabler-search" />
-          <v-btn color="primary" variant="elevated" @click="openDialog">
-            <v-icon icon="tabler-plus" class="mr-1" />
-            Create Delivery
-          </v-btn>
+<v-btn color="primary" variant="elevated" @click="openDialog">
+              <v-icon icon="tabler-plus" class="mr-1" />
+              Create Stock
+            </v-btn>
         </div>
       </v-card-title>
       <v-divider />
@@ -173,7 +173,7 @@ const siteName = (siteId) => {
     <v-dialog v-model="dialog" max-width="600">
       <v-card class="pa-6">
         <v-card-item class="pa-0">
-          <h4 class="text-h4 mb-4">Create Delivery</h4>
+          <h4 class="text-h4 mb-4">Create Stock</h4>
           <v-alert v-if="formError" type="error" class="mb-4">{{ formError }}</v-alert>
           <v-form @submit.prevent="submitDelivery">
             <GlobalsTextField
@@ -205,7 +205,7 @@ const siteName = (siteId) => {
             />
             <div class="d-flex justify-end ga-2">
               <v-btn variant="tonal" color="grey" @click="dialog = false">Cancel</v-btn>
-              <v-btn color="primary" variant="elevated" type="submit" :loading="formLoading">Create</v-btn>
+              <v-btn color="primary" variant="elevated" type="submit" :loading="formLoading">Create Stock</v-btn>
             </div>
           </v-form>
         </v-card-item>
